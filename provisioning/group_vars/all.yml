@@ -1,0 +1,14 @@
+timestamp: "{{ ansible_date_time.epoch }}"
+
+# devops
+domain: disrupting_app.com
+ssl_name: disrupting_app
+# rutha
+app_name: disrupting_app
+app_repo: git@github.com:molekilla/rutha.git
+app_branch: release0.1.0
+app_version: v0.1.0
+app_env: 
+  NODE_ENV: production
+# howto create ssl keys
+# sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout domain.key -out domain.crt

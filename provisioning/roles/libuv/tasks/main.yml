@@ -1,0 +1,29 @@
+---
+
+- name: Download Libuv
+  get_url: url=http://dist.libuv.org/dist/v1.0.0-rc1/libuv-v1.0.0-rc1.tar.gz dest=/opt/libuv-v1.0.0-rc1.tar.gz
+
+- name: Create directory
+  file: path=/opt/libuv-v1.0.0-rc1 state=directory
+  
+- name: Extract libuv
+  unarchive: src=/opt/libuv-v1.0.0-rc1.tar.gz dest=/opt/libuv-v1.0.0-rc1 copy=no
+  args:
+    creates: /opt/libuv-v1.0.0-rc1/libuv-v1.0.0-rc1
+
+- name: build libuv
+  shell: ./gyp_uv.py -f make -Duv_library=shared_library && make -C out
+  args:
+    chdir: /opt/libuv-v1.0.0-rc1/libuv-v1.0.0-rc1
+    creates: out/Debug/lib.target
+    
+- name: copy libuv
+  command: cp out/Debug/lib.target/libuv.so /usr/lib/libuv.so.1.0.0-rc1
+  args:
+    chdir: /opt/libuv-v1.0.0-rc1/libuv-v1.0.0-rc1
+    creates: /usr/lib/libuv.so.1.0.0-rc1
+
+# sudo ln -sf /usr/lib/libuv.so.1.0.0-rc1 /usr/lib/libuv.so.1
+- file: src=/usr/lib/{{ item.path }} dest={{ item.dest }} state=link force=yes
+  with_items:
+    - { path: 'libuv.so.1.0.0-rc1', dest: '/usr/lib/libuv.so.1' }

@@ -1,0 +1,20 @@
+---
+
+- name: Update apt cache if needed
+  apt: update_cache=yes cache_valid_time=3600
+  
+- name: Install Packages
+  apt: pkg={{ item }} state=installed
+  with_items:
+  - make
+  - git
+  - autoconf
+  - libtool
+  - automake
+  - build-essential
+  - gettext
+  - zip
+  - unzip
+  - tar
+  - gyp
+  - curl

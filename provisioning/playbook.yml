@@ -1,0 +1,15 @@
+---
+# This playbook deploys a rutha server.
+
+#- hosts: aws
+#  sudo: yes
+#  remote_user: ubuntu
+  
+  # Vagrant - 192.168.88.88
+- hosts: all
+  
+  roles:
+    - mono
+    - utils
+    - libuv
+    - aspnet

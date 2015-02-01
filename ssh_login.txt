@@ -1,0 +1,1 @@
+ssh -i ~/myaws.pem ubuntu@myip

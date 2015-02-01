@@ -1,0 +1,38 @@
+---
+- name: Get Xamarin GPG
+# Add an apt key by id from a keyserver
+  apt_key: keyserver=keyserver.ubuntu.com id=3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF state=present
+
+- name: Has mono-xamarin.list
+  stat: path=/etc/apt/sources.list.d/mono-xamarin.list
+  register: mono_xamarin
+
+- name: Create /etc/apt/sources.list.d/mono-xamarin.list
+  file: path=/etc/apt/sources.list.d/mono-xamarin.list state=touch
+  when: mono_xamarin.stat.exists == false
+  ignore_errors: yes
+
+- name: Add package repo Ubuntu trusty
+  lineinfile:
+    dest: /etc/apt/sources.list.d/mono-xamarin.list
+    regexp: "^deb http://download.mono-project.com/repo/debian wheezy main"
+    line: "deb http://download.mono-project.com/repo/debian wheezy main"
+    state: present
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'trusty'
+    
+- name: Add package repo Ubuntu precise
+  lineinfile:
+    dest: /etc/apt/sources.list.d/mono-xamarin.list
+    regexp: "^deb http://download.mono-project.com/repo/debian wheezy-libtiff-compat main"
+    line: "deb http://download.mono-project.com/repo/debian wheezy-libtiff-compat main"
+    state: present
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'precise'
+
+- name: Update apt cache if needed
+  apt: update_cache=yes cache_valid_time=3600
+  
+- name: Install Mono Latest
+  apt: pkg={{ item }} state=installed
+  with_items:
+  - mono-devel
+  - mono-complete
