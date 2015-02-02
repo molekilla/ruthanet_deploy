@@ -1,8 +1,12 @@
 ---
 - name: Get Xamarin GPG
+  apt_key: 
+    url: http://download.mono-project.com/repo/xamarin.gpg
+    state: present
 # Add an apt key by id from a keyserver
 #  apt_key: keyserver=keyserver.ubuntu.com id=3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF state=present
-  apt_key: url=http://keyserver.ubuntu.com/pks/lookup?op=get&fingerprint=on&search=0x3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF state=present
+#  apt_key: url=http://keyserver.ubuntu.com/pks/lookup?op=get&fingerprint=on&search=0x3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF state=present
+  # shell: apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
 
 - name: Has mono-xamarin.list
   stat: path=/etc/apt/sources.list.d/mono-xamarin.list
