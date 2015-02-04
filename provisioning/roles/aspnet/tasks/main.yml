@@ -1,8 +1,6 @@
 ---
 - name: Clone ASP.NET repository
   git: repo=https://github.com/aspnet/home
-  sudo: no
-  sudo_user: "{{ ansible_ssh_user }}"
   args:
     accept_hostkey: yes
     dest: "/home/{{ ansible_ssh_user }}/repos/aspnet"

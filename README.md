@@ -10,7 +10,7 @@ rutha.net staging and deployment vagrant environment
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  config.vm.synced_folder "~/Code/rutha.net", "/rutha.net"
+  config.vm.synced_folder "~/Code/rutha.net", "/home/vagrant/repos/rutha.net"
 ```
 
 3. Provision VM
@@ -25,9 +25,9 @@ rutha.net staging and deployment vagrant environment
 7. Enjoy!
 
 
-## To start developing ASP.NET 6 Beta
+## To start developing ASP.NET 5
 1. Run `vagrant ssh`
 2. Run `curl -sSL https://raw.githubusercontent.com/aspnet/Home/master/kvminstall.sh | sh && source ~/.kre/kvm/kvm.sh`
 3. Install latest kpm with `kvm upgrade`
-4. `kpm restore` project
-5. Run apps with `k kestrel`
+4. Install dependencies with `npm install` (which runs `kpm restore` as postinstall)
+5. Run apps with `npm start`
