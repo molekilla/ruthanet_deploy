@@ -23,11 +23,3 @@ rutha.net staging and deployment vagrant environment
 5. `cd ruthanet_deploy`
 6. Run `vagrant up`
 7. Enjoy!
-
-
-## To start developing ASP.NET 5
-1. Run `vagrant ssh`
-2. Run `curl -sSL https://raw.githubusercontent.com/aspnet/Home/master/kvminstall.sh | sh && source ~/.kre/kvm/kvm.sh`
-3. Install latest kpm with `kvm upgrade`
-4. Install dependencies with `npm install` (which runs `kpm restore` as postinstall)
-5. Run apps with `npm start`
